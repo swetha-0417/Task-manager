@@ -8,6 +8,7 @@ const list = document.querySelector("#task-list");
 const search = document.querySelector("#search");
 const submitBtn = document.querySelector("#submit-btn");
 const emptyMessage = document.querySelector("#empty-message");
+const filterCategory = document.querySelector("#filter-category");
 
 // Load saved tasks
 let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
@@ -22,12 +23,19 @@ function saveTasks() {
 // Display tasks
 function renderTasks() {
     list.innerHTML = "";
-
+      
     const searchText = search.value.toLowerCase();
+    const selectedCategory = filterCategory.value;
 
     const filteredTasks = tasks.filter(function(task) {
-        return task.text.toLowerCase().includes(searchText);
-    });
+    const matchesSearch = task.text.toLowerCase().includes(searchText);
+
+    const matchesCategory =
+        selectedCategory === "All" ||
+        task.category === selectedCategory;
+
+    return matchesSearch && matchesCategory;
+});
 
     filteredTasks.forEach(function(task) {
 
@@ -63,6 +71,12 @@ heading.prepend(checkbox);
 
         const dateText = document.createElement("p");
         dateText.textContent = "Due Date: " + task.dueDate;
+        const today = new Date().toISOString().split("T")[0];
+
+        if (task.dueDate < today) {
+        dateText.style.color = "red";
+        dateText.textContent += " (Overdue)";
+        }
 
         const actions = document.createElement("div");
         actions.className = "actions";
@@ -176,6 +190,7 @@ list.addEventListener("click", function(e) {
 
 // Search tasks
 search.addEventListener("input", renderTasks);
+filterCategory.addEventListener("change", renderTasks);
 
 // Display saved tasks on page load
 renderTasks();
