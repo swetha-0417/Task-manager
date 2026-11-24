@@ -64,7 +64,7 @@ A simple and responsive Task Manager application built using HTML, CSS, and Java
 
 ## Screenshot
 
-![Task Manager Screenshot](screenshot.png)
+![Task Manager Screenshot](Screenshot.png)
 
 ## How to Run
 1. Clone or download this repository.
