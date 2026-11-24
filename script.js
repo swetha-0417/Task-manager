@@ -35,8 +35,26 @@ function renderTasks() {
         card.className = "task-card " + task.priority.toLowerCase();
 
         const heading = document.createElement("h3");
-        heading.textContent = task.text;
 
+const checkbox = document.createElement("input");
+checkbox.type = "checkbox";
+checkbox.checked = task.completed || false;
+checkbox.className = "complete-checkbox";
+
+heading.textContent = task.text;
+
+if (task.completed) {
+    heading.style.textDecoration = "line-through";
+    heading.style.color = "gray";
+}
+
+checkbox.addEventListener("change", function() {
+    task.completed = checkbox.checked;
+    saveTasks();
+    renderTasks();
+});
+
+heading.prepend(checkbox);
         const categoryText = document.createElement("p");
         categoryText.textContent = "Category: " + task.category;
 
