@@ -26,12 +26,6 @@ built using HTML, CSS and JavaScript.
 - Tablet layout (768px)
 - Mobile layout (480px)
 
-## Screenshot
-
-Add your project screenshot here:
-
-![Task Manager Screenshot](screenshot.png)
-
 ## How to Run
 1. Download or clone this repository.
 2. Open the project folder in VS Code.
